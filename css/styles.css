@@ -56,6 +56,7 @@ body{
 }
 .section .section-head p{margin:0 0 18px;color:var(--muted)}
 
+
 /* =========================
    Cabeçalho
    ========================= */
@@ -66,41 +67,46 @@ body{
   box-shadow:0 6px 18px rgba(0,0,0,.25);
 }
 .header-grid{
-  display:flex;align-items:center;justify-content:space-between;gap:16px;
-  min-height:84px;
-  position:relative;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  min-height:84px; position:relative;
+  flex-wrap:nowrap; /* nunca quebrar no desktop */
 }
-.brand{ display:flex;align-items:center;gap:10px; }
+.brand{ display:flex; align-items:center; gap:10px; flex:0 0 auto; }
 .brand img{
-  height:64px;max-height:64px;width:auto;object-fit:contain;
+  height:64px; max-height:64px; width:auto; object-fit:contain;
   filter:drop-shadow(0 6px 14px rgba(0,0,0,.35));
   transition:transform .18s ease,filter .18s ease;
 }
-@media (min-width:1024px){
-  .brand img{height:80px;max-height:80px}
-}
-.brand img:hover{transform:scale(1.03);filter:drop-shadow(0 10px 24px rgba(255,106,0,.35))}
+@media (min-width:1024px){ .brand img{ height:80px; max-height:80px } }
+.brand img:hover{ transform:scale(1.03); filter:drop-shadow(0 10px 24px rgba(255,106,0,.35)) }
 
 /* Menu base */
-.menu{display:flex;gap:16px;list-style:none;margin:0;padding:0}
+.menu-wrap{ flex:1 1 auto; min-width:0; }
+.menu{
+  display:flex; gap:16px; list-style:none; margin:0; padding:0;
+  align-items:center; justify-content:center; flex-wrap:nowrap;
+}
 .menu a{
-  color:#e9edf6;padding:10px 14px;border-radius:8px;
-  font-weight:700;letter-spacing:.2px;
+  color:#e9edf6; padding:10px 14px; border-radius:8px;
+  font-weight:700; letter-spacing:.2px; white-space:nowrap; /* evita quebra */
   transition:color .2s ease,background .2s ease;
 }
-.menu a:hover,.menu a.active{color:#fff;background:#ffffff1a}
+.menu a:hover,.menu a.active{ color:#fff; background:#ffffff1a }
 
-/* Ações (WhatsApp/Ligar) */
-.actions{display:flex;gap:10px;flex-wrap:wrap}
+/* Ações (WhatsApp/Ligue já) */
+.actions{
+  display:flex; gap:10px; flex-wrap:nowrap; flex:0 0 auto; /* sem wrap no desktop */
+}
+.actions .btn{ white-space:nowrap; padding:10px 14px; }
 
 /* Botão hambúrguer (mobile) */
 .hamb{
-  width:34px;height:26px;background:none;border:0;cursor:pointer;display:none;
-  position:relative;z-index:61;
+  width:34px; height:26px; background:none; border:0; cursor:pointer; display:none;
+  position:relative; z-index:61;
 }
 .hamb span{
-  position:absolute;left:0;width:100%;height:3px;background:#e9edf6;border-radius:2px;
-  transition:.25s ease;transform-origin:left center;
+  position:absolute; left:0; width:100%; height:3px; background:#e9edf6; border-radius:2px;
+  transition:.25s ease; transform-origin:left center;
 }
 .hamb span:nth-child(1){ top:0 }
 .hamb span:nth-child(2){ top:11px }
@@ -109,16 +115,17 @@ body{
 .hamb.open span:nth-child(2){ opacity:0 }
 .hamb.open span:nth-child(3){ transform:rotate(-45deg); top:22px }
 
-/* Desktop: menu horizontal visível */
+/* Desktop: menu horizontal visível e tudo em uma linha */
 @media (min-width:901px){
   .hamb{ display:none; }
   .menu-wrap{ display:block !important; position:static; background:transparent; box-shadow:none; }
-  .menu{ display:flex; flex-direction:row; align-items:center; gap:16px; }
+  .menu{ flex-direction:row; gap:16px; }
 }
 
-/* Mobile: menu vertical drop-down */
+/* Mobile: menu vertical drop-down + botões empilhados iguais */
 @media (max-width:900px){
   .hamb{ display:block; }
+
   .menu-wrap{
     display:none; /* fechado por padrão */
     position:absolute; left:0; right:0; top:100%;
@@ -127,11 +134,29 @@ body{
     box-shadow:0 14px 30px rgba(0,0,0,.35);
   }
   .menu-wrap.open{ display:block; }
+
   .menu{
-    display:flex; flex-direction:column; gap:0; list-style:none; margin:0; padding:8px;
+    flex-direction:column; gap:0; list-style:none; margin:0; padding:8px;
   }
   .menu li{ width:100%; }
   .menu a{ display:block; width:100%; padding:12px 14px; border-radius:10px; }
+
+  /* Ações abaixo, empilhadas e com mesma largura */
+  .actions{
+    width:100%; margin-top:8px;
+    display:flex; flex-direction:column; gap:12px;
+  }
+  .actions .btn{
+    width:100%; padding:14px 16px; font-size:16px; border-radius:12px;
+    text-align:center;
+  }
+}
+
+/* Ajuste fino para telas entre 901–1100px: reduz levemente espaçamentos */
+@media (min-width:901px) and (max-width:1100px){
+  .menu{ gap:10px; }
+  .menu a{ padding:8px 10px; font-size:14px; }
+  .actions .btn{ padding:9px 12px; font-size:14px; }
 }
 
 /* ---------- Botões ---------- */
