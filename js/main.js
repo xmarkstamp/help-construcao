@@ -5,13 +5,13 @@
   'use strict';
 
   /* ===== Config ===== */
-  const PHONE = '5538998182986'; // ajuste aqui se mudar o número
+  const PHONE = '5538998182986'; // número oficial Help Construção
   const WA_BASE = `https://wa.me/${PHONE}?text=`;
 
   /* ===== Util ===== */
   const goWA = (text) => window.open(WA_BASE + encodeURIComponent(text), '_blank');
 
-  /* ===== Ripple (efeito de clique) ===== */
+  /* ===== Ripple (efeito clique) ===== */
   function attachRipple(el){
     const cs = getComputedStyle(el);
     if (cs.position === 'static') el.style.position = 'relative';
@@ -22,7 +22,7 @@
       r.className = 'ripple';
       r.style.width = r.style.height = `${size}px`;
       r.style.left = `${e.clientX - rect.left - size/2}px`;
-      r.style.top  = `${e.clientY - rect.top  - size/2}px`;
+      r.style.top  = `${e.clientY - rect.top - size/2}px`;
       el.appendChild(r);
       setTimeout(() => r.remove(), 650);
     });
@@ -34,14 +34,13 @@
     document.querySelectorAll('.card, .shot, .t-card').forEach(attachRipple);
 
     // 2) Cards -> WhatsApp
-    //    a) Delegação no grid de cards para eficiência
     const cardsWrap = document.querySelector('.cards');
     if (cardsWrap){
       cardsWrap.addEventListener('click', (e) => {
         const card = e.target.closest('.card');
         if (!card || !cardsWrap.contains(card)) return;
 
-        // Se clicou num link/botão dentro do card, deixa o default
+        // Se clicou num botão/link interno, não intercepta
         if (e.target.closest('a,button')) return;
 
         const service =
@@ -54,7 +53,7 @@
       });
     }
 
-    //    b) Botão CTA dentro de cada card (impede bolha)
+    // 2b) Botão CTA dentro de cada card
     document.querySelectorAll('.card .card-cta').forEach((btn) => {
       btn.addEventListener('click', (ev) => {
         ev.preventDefault();
