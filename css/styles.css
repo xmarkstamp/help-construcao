@@ -399,3 +399,40 @@ body{
 @media (prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
 }
+
+/* ===== Animações dos botões (WhatsApp pulsar / Ligar tocando) ===== */
+.btn.primary.whatsapp {
+  position: relative;
+  animation: pulseWA 1.8s infinite;
+}
+@keyframes pulseWA {
+  0%   { transform: scale(1);   box-shadow: 0 0 0 0 rgba(37,211,102,.6); }
+  70%  { transform: scale(1.05);box-shadow: 0 0 0 14px rgba(37,211,102,0); }
+  100% { transform: scale(1);   box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+}
+.btn.primary.whatsapp:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 0 14px rgba(37,211,102,.65);
+}
+
+.btn.ghost.ligar {
+  animation: ringPhone 1.2s infinite;
+  transform-origin: center;
+}
+@keyframes ringPhone {
+  0%   { transform: rotate(0deg); }
+  10%  { transform: rotate(8deg); }
+  20%  { transform: rotate(-8deg); }
+  30%  { transform: rotate(6deg); }
+  40%  { transform: rotate(-6deg); }
+  50%  { transform: rotate(4deg); }
+  60%  { transform: rotate(-4deg); }
+  70%  { transform: rotate(2deg); }
+  80%  { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
+}
+.btn.ghost.ligar:hover {
+  background: var(--call);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(37,99,235,.55);
+}
