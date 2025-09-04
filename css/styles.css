@@ -148,3 +148,110 @@
 @media (prefers-reduced-motion: reduce){
   *{transition:none!important; animation:none!important}
 }
+
+/* ===== HOTFIX: Layout & Footer ===== */
+
+/* 1) Respiro por causa do header sticky (ajuste a altura conforme seu header) */
+:root{ --header-h: 88px; }
+body { padding-top: var(--header-h); }
+
+/* 2) Seções: deixar próximo mas não tumultuado */
+.section { padding: 40px 0; }
+.section .section-head h2 { margin: 0 0 6px; }
+.section .section-head p  { margin: 0 0 18px; }
+
+/* 3) Containers garantidos */
+.container { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+/* 4) Grids responsivos (mantém proporções, sem estourar) */
+@media (min-width: 1025px){
+  .cards{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px;}
+  .gallery{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px;}
+  .testimonials{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px;}
+}
+@media (min-width: 768px) and (max-width: 1024px){
+  .cards{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px;}
+  .gallery{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px;}
+  .testimonials{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px;}
+}
+@media (max-width: 767px){
+  .cards{display:grid; grid-template-columns:1fr; gap:14px;}
+  .gallery{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .testimonials{display:grid; grid-template-columns:1fr; gap:14px;}
+}
+
+/* 5) Imagens: não force altura fixa; respeita original */
+.banner img,
+.shot img { width:100%; height:auto; display:block; }
+
+/* 6) Header sticky com degradê grafite (não cobre conteúdo) */
+.header{
+  position: sticky; top: 0; z-index: 60;
+  background: linear-gradient(180deg,#1a1a1a 0%,#0f0f0f 100%);
+  border-bottom: 1px solid #ffffff1a;
+  box-shadow: 0 6px 18px rgba(0,0,0,.25);
+}
+.header .menu a{ color:#e6eaf2; transition: color .2s ease, background .2s ease; }
+.header .menu a:hover{ color:#fff; background:#ffffff1a; border-radius:8px; }
+
+/* 7) Título hero: limpo e elegante (sem degradê estranho) */
+.hero .hero-title, .hero h1{
+  margin: 0 0 10px;
+  font-family: Poppins, Inter, sans-serif; font-weight: 800;
+  font-size: clamp(28px,4.2vw,44px); line-height: 1.08;
+  color: #ffffff; letter-spacing: -.015em;
+  text-shadow: 0 2px 14px rgba(0,0,0,.25);
+  transition: transform .18s ease, filter .18s ease;
+}
+.hero .hero-title:hover, .hero h1:hover{ transform: translateY(-1px); filter: brightness(1.03); }
+
+/* 8) Interações: máscara + contorno + elevação no hover (cards, imagens, depoimentos) */
+:root{ --ring:#F7811D; }
+.card, .shot, .t-card{
+  position: relative; overflow: hidden;
+  transition: transform .18s ease, box-shadow .22s ease, border-color .18s ease;
+  will-change: transform, box-shadow;
+}
+.card:hover, .shot:hover, .t-card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 18px 50px rgba(0,0,0,.22);
+}
+.card::after, .shot::after, .t-card::after{
+  content:""; position: absolute; inset:0;
+  background: transparent; border:2px solid transparent; border-radius: 16px;
+  transition: background .22s ease, border-color .22s ease;
+}
+.card:hover::after, .shot:hover::after, .t-card:hover::after{
+  background: rgba(0,0,0,.16); border-color: var(--ring);
+}
+
+/* 9) Ripple de clique (sensação de movimento) */
+.ripple{
+  position:absolute; border-radius:50%; transform:scale(0);
+  animation: ripple .6s ease-out forwards; pointer-events:none;
+  background: radial-gradient(circle, rgba(255,255,255,.5) 0%, rgba(255,255,255,.1) 60%, rgba(255,255,255,0) 70%);
+}
+@keyframes ripple{ to { transform: scale(10); opacity: 0; } }
+
+/* 10) Formulário vertical (já aprovado) — só reforços */
+.form.form-stack{
+  max-width: 720px; margin-inline: auto;
+  background: #ffffff; color: #0f172a;
+  border: 1px solid #e2e8f0; border-radius: 16px; box-shadow: var(--shadow);
+  padding: 20px;
+}
+.form.form-stack label{ display: grid; gap: 8px; margin-bottom: 12px; font-weight: 600; }
+.form.form-stack input, .form.form-stack select, .form.form-stack textarea{
+  background: #f8fafc; color: #0f172a; border: 1px solid #cbd5e1; border-radius: 10px; padding: 12px; font: inherit;
+}
+.form.form-stack input:focus, .form.form-stack select:focus, .form.form-stack textarea:focus{
+  outline: none; border-color:#ff9b4d; box-shadow: 0 0 0 3px #ff9b4d33;
+}
+
+/* 11) Footer sempre visível (sem desaparecer) */
+footer, .site-footer, .footer{
+  display:block; background:#0b111d; color:#e5e7eb;
+  border-top:1px solid #ffffff14; padding: 28px 0; position: relative; z-index: 1;
+}
+.foot{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+footer a, .site-footer a, .footer a{ color:#e5e7e
