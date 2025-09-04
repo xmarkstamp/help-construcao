@@ -169,23 +169,38 @@ body{
 .badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;margin-bottom:16px}
 .badge{background:#f3f4f6;color:#111;padding:6px 12px;border-radius:999px;font-size:14px;font-weight:600}
 
-/* Banner hero: foco no rodapé e altura melhor no desktop */
+/* Banner hero: foco ajustado para não cortar o rosto */
 .banner{
   display:block;position:relative;border-radius:16px;overflow:hidden;
   box-shadow:0 12px 30px rgba(2,6,23,.22);
   aspect-ratio:16/9;
 }
 @media (max-width:640px){ .banner{aspect-ratio:4/3} }
+
 .banner img{
   width:100%;height:100%;
   object-fit:cover;
-  object-position:center bottom; /* foco no rodapé */
+  /* foco mais para baixo para preservar o rosto */
+  object-position: 50% 85%;
   transition:transform .35s ease,filter .25s ease;
 }
 .banner:hover img{transform:scale(1.02);filter:brightness(1.02)}
+
+/* Desktop/monitor: mais altura e foco ainda mais baixo */
 @media (min-width:1024px){
-  .banner{aspect-ratio:auto; height:clamp(520px, 62vh, 780px);}
-  .banner img{height:100%}
+  .banner{
+    aspect-ratio:auto;
+    height:clamp(560px, 66vh, 840px); /* +altura = menos corte */
+  }
+  .banner img{
+    object-position: 50% 92%; /* pode ajustar entre 85%–95% conforme a foto */
+  }
+}
+
+/* Monitores muito largos: dá mais folga */
+@media (min-width:1440px){
+  .banner{ height:clamp(620px, 70vh, 900px); }
+  .banner img{ object-position: 50% 95%; }
 }
 
 /* =========================
