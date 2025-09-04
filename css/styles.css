@@ -169,7 +169,7 @@ body{
 .badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;margin-bottom:16px}
 .badge{background:#f3f4f6;color:#111;padding:6px 12px;border-radius:999px;font-size:14px;font-weight:600}
 
-/* Banner hero: foco ajustado para não cortar o rosto */
+/* Banner hero — foco ajustado para não cortar cabeça */
 .banner{
   display:block;position:relative;border-radius:16px;overflow:hidden;
   box-shadow:0 12px 30px rgba(2,6,23,.22);
@@ -180,27 +180,26 @@ body{
 .banner img{
   width:100%;height:100%;
   object-fit:cover;
-  /* foco mais para baixo para preservar o rosto */
-  object-position: 50% 92%;
+  /* foco mais para cima (mostra mais cabeça) */
+  object-position: 50% 20%;
   transition:transform .35s ease,filter .25s ease;
 }
 .banner:hover img{transform:scale(1.02);filter:brightness(1.02)}
 
-/* Desktop/monitor: mais altura e foco ainda mais baixo */
+/* Desktop/monitor: mais altura e foco no topo */
 @media (min-width:1024px){
   .banner{
     aspect-ratio:auto;
-    height:clamp(560px, 70vh, 840px); /* +altura = menos corte */
+    height:clamp(560px, 66vh, 840px);
   }
   .banner img{
-    object-position: 50% 92%; /* pode ajustar entre 85%–95% conforme a foto */
+    object-position: 50% 15%; /* sobe mais o enquadramento */
   }
 }
 
-/* Monitores muito largos: dá mais folga */
 @media (min-width:1440px){
-  .banner{ height:clamp(620px, 70vh, 900px); }
-  .banner img{ object-position: 50% 95%; }
+  .banner{ height:clamp(620px, 72vh, 920px); }
+  .banner img{ object-position: 50% 12%; }
 }
 
 /* =========================
