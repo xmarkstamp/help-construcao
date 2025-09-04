@@ -23,19 +23,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
 
-  <!-- CSS e JS (mantidos) -->
-  <link rel="stylesheet" href="css/styles.css?v=5" />
-  <script defer src="js/main.js?v=5"></script>
+  <!-- CSS e JS -->
+  <link rel="stylesheet" href="css/styles.css?v=6" />
+  <script defer src="js/main.js?v=6"></script>
 
   <meta name="format-detection" content="telephone=yes" />
 </head>
 <body translate="no">
-  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
-
   <!-- ===== HEADER ===== -->
   <header class="header" id="topo" role="banner" aria-label="Cabeçalho">
     <div class="container header-grid">
-      <!-- Logo maior: CSS vai assumir (ganchos .brand--lg e data-size) -->
+      <!-- Marca -->
       <a href="#topo" class="brand brand--lg" aria-label="Página inicial" data-size="lg">
         <img
           src="assets/logo-help.png"
@@ -44,8 +42,13 @@
         <span class="brand-text">Help Construção</span>
       </a>
 
-      <!-- Menu principal -->
-      <nav class="menu-wrap" role="navigation" aria-label="Principal">
+      <!-- Botão hambúrguer (mobile) -->
+      <button class="hamb" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <!-- Menu -->
+      <nav id="menu" class="menu-wrap" role="navigation" aria-label="Principal">
         <ul class="menu">
           <li><a href="#servicos">Serviços</a></li>
           <li><a href="#galeria">Antes &amp; Depois</a></li>
@@ -91,7 +94,7 @@
           <span class="badge">Garantia &amp; Nota Fiscal</span>
         </div>
 
-        <!-- Banner com proporção controlada pelo CSS -->
+        <!-- Banner com proporção controlada (foco no rodapé no CSS) -->
         <a class="banner banner--cover" href="https://wa.me/5538998182986?text=Ol%C3%A1%2C%20quero%20um%20or%C3%A7amento%20com%20a%20Help%20Constru%C3%A7%C3%A3o."
            target="_blank" rel="noopener" aria-label="Solicitar orçamento">
           <img src="assets/banner-hero.jpg"
@@ -222,7 +225,6 @@
       <div class="container">
         <header class="section-head">
           <h2>Orçamento em Minutos</h2>
-          <p>Preencha os dados e envie — respondemos rápido pelo WhatsApp.</p>
         </header>
 
         <form id="formOrcamento" class="form form-stack">
@@ -288,4 +290,3 @@
   </script>
 </body>
 </html>
-
