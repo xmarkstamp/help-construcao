@@ -1,72 +1,102 @@
-// JS opcional — adicione scripts aqui.
-/* ===== Clique com Ripple nos balões =====
-   Aplica em cards, imagens (shot) e depoimentos */
-function attachRipple(el){
-  el.style.position = el.style.position || 'relative';
-  el.addEventListener('click', (e)=>{
-    const rect = el.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height);
-    const ripple = document.createElement('span');
-    ripple.className = 'ripple';
-    ripple.style.width = ripple.style.height = `${size}px`;
-    ripple.style.left = `${e.clientX - rect.left - size/2}px`;
-    ripple.style.top  = `${e.clientY - rect.top  - size/2}px`;
-    el.appendChild(ripple);
-    setTimeout(()=> ripple.remove(), 650);
-  });
-}
+/* =========================
+   Help Construção • main.js
+   ========================= */
+(() => {
+  'use strict';
 
-document.querySelectorAll('.card, .shot, .t-card').forEach(attachRipple);
+  /* ===== Config ===== */
+  const PHONE = '5538998182986'; // ajuste aqui se mudar o número
+  const WA_BASE = `https://wa.me/${PHONE}?text=`;
 
-/* ===== Cards -> WhatsApp (mantém seu comportamento se já existe) ===== */
-function goWA(service, extra=''){
-  const phone = '5538998182986';
-  const msg = `Olá, gostaria de fazer um orçamento de *${service}* ${extra}`.trim();
-  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
-}
-document.querySelectorAll('.card').forEach(card=>{
-  const service = card.getAttribute('data-service') || card.querySelector('h3')?.textContent || 'Serviço';
-  card.addEventListener('click', (e)=>{
-    // Se clicou num link/botão já existente, deixa o default:
-    if (e.target.closest('a,button')) return;
-    goWA(service);
-  });
-  const btn = card.querySelector('.card-cta');
-  if(btn){ btn.addEventListener('click', ev=>{ ev.preventDefault(); ev.stopPropagation(); goWA(service); }); }
-});
+  /* ===== Util ===== */
+  const goWA = (text) => window.open(WA_BASE + encodeURIComponent(text), '_blank');
 
-/* ===== Formulário “Orçamento em Minutos” -> WhatsApp ===== */
-const form = document.getElementById('formOrcamento');
-if(form){
-  form.addEventListener('submit', (e)=>{
-    e.preventDefault();
-    const fd = new FormData(form);
-    const nome = fd.get('nome')||'';
-    const tel  = fd.get('telefone')||'';
-    const serv = fd.get('servico')||'Serviço';
-    const local= fd.get('local')||'';
-    const msg  = fd.get('mensagem')||'';
-    const text = `Olá, gostaria de fazer um orçamento de *${serv}*.`+
-                 `\n\nNome: ${nome}\nTelefone: ${tel}\nLocal: ${local}\nNecessidade: ${msg}`;
-    const url  = `https://wa.me/5538998182986?text=${encodeURIComponent(text)}`;
-    window.open(url, '_blank');
-  });
-   // Ripple: não altera layout, só efeito visual no clique
-function attachRipple(el){
-  const style = getComputedStyle(el);
-  if (style.position === 'static') el.style.position = 'relative';
-  el.addEventListener('click', (e)=>{
-    const rect = el.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height);
-    const ripple = document.createElement('span');
-    ripple.className = 'ripple';
-    ripple.style.width = ripple.style.height = size + 'px';
-    ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
-    ripple.style.top  = (e.clientY - rect.top  - size/2) + 'px';
-    el.appendChild(ripple);
-    setTimeout(()=> ripple.remove(), 650);
-  });
-}
-document.querySelectorAll('.card, .shot, .t-card').forEach(attachRipple);
+  /* ===== Ripple (efeito de clique) ===== */
+  function attachRipple(el){
+    const cs = getComputedStyle(el);
+    if (cs.position === 'static') el.style.position = 'relative';
+    el.addEventListener('click', (e) => {
+      const rect = el.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const r = document.createElement('span');
+      r.className = 'ripple';
+      r.style.width = r.style.height = `${size}px`;
+      r.style.left = `${e.clientX - rect.left - size/2}px`;
+      r.style.top  = `${e.clientY - rect.top  - size/2}px`;
+      el.appendChild(r);
+      setTimeout(() => r.remove(), 650);
+    });
+  }
 
-}
+  /* ===== Inicialização ===== */
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1) Ripple em cards, imagens e depoimentos
+    document.querySelectorAll('.card, .shot, .t-card').forEach(attachRipple);
+
+    // 2) Cards -> WhatsApp
+    //    a) Delegação no grid de cards para eficiência
+    const cardsWrap = document.querySelector('.cards');
+    if (cardsWrap){
+      cardsWrap.addEventListener('click', (e) => {
+        const card = e.target.closest('.card');
+        if (!card || !cardsWrap.contains(card)) return;
+
+        // Se clicou num link/botão dentro do card, deixa o default
+        if (e.target.closest('a,button')) return;
+
+        const service =
+          card.getAttribute('data-service') ||
+          card.querySelector('h3')?.textContent?.trim() ||
+          'Serviço';
+
+        const msg = `Olá, gostaria de fazer um orçamento de *${service}*.`;
+        goWA(msg);
+      });
+    }
+
+    //    b) Botão CTA dentro de cada card (impede bolha)
+    document.querySelectorAll('.card .card-cta').forEach((btn) => {
+      btn.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        const card = btn.closest('.card');
+        const service =
+          card?.getAttribute('data-service') ||
+          card?.querySelector('h3')?.textContent?.trim() ||
+          'Serviço';
+        const msg = `Olá, gostaria de fazer um orçamento de *${service}*.`;
+        goWA(msg);
+      });
+    });
+
+    // 3) Form “Orçamento em Minutos” -> WhatsApp
+    const form = document.getElementById('formOrcamento');
+    if (form){
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fd = new FormData(form);
+        const nome = (fd.get('nome')||'').trim();
+        const tel  = (fd.get('telefone')||'').trim();
+        const serv = (fd.get('servico')||'Serviço').trim();
+        const local= (fd.get('local')||'').trim();
+        const msg  = (fd.get('mensagem')||'').trim();
+
+        const text = `Olá, gostaria de fazer um orçamento de *${serv}*.`+
+                     `\n\nNome: ${nome}\nTelefone: ${tel}\nLocal: ${local}\nNecessidade: ${msg}`;
+        goWA(text);
+      });
+    }
+
+    // 4) Rolagem suave para âncoras do menu
+    document.querySelectorAll('a[href^="#"]').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if (!id || id === '#') return;
+        const target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  });
+})();
