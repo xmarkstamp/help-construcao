@@ -181,7 +181,7 @@ body{
   width:100%;height:100%;
   object-fit:cover;
   /* foco mais para baixo para preservar o rosto */
-  object-position: 50% 85%;
+  object-position: 50% 92%;
   transition:transform .35s ease,filter .25s ease;
 }
 .banner:hover img{transform:scale(1.02);filter:brightness(1.02)}
@@ -190,7 +190,7 @@ body{
 @media (min-width:1024px){
   .banner{
     aspect-ratio:auto;
-    height:clamp(560px, 66vh, 840px); /* +altura = menos corte */
+    height:clamp(560px, 70vh, 840px); /* +altura = menos corte */
   }
   .banner img{
     object-position: 50% 92%; /* pode ajustar entre 85%–95% conforme a foto */
