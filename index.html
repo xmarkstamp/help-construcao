@@ -24,8 +24,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
 
   <!-- CSS e JS -->
-  <link rel="stylesheet" href="css/styles.css?v=6" />
-  <script defer src="js/main.js?v=6"></script>
+  <link rel="stylesheet" href="css/styles.css?v=7" />
+  <script defer src="js/main.js?v=7"></script>
 
   <meta name="format-detection" content="telephone=yes" />
 </head>
@@ -59,12 +59,11 @@
       </nav>
 
       <!-- Ações -->
-<div class="actions">
-  <a class="btn primary" target="_blank" rel="noopener"
-     href="https://wa.me/5538998182986?text=Ol%C3%A1%2C%20quero%20um%20or%C3%A7amento%20com%20a%20Help%20Constru%C3%A7%C3%A3o.">WhatsApp</a>
-  <a class="btn ghost btn-call" href="tel:+5538998182986">Ligue já</a>
-</div>
-
+      <div class="actions">
+        <a class="btn primary whatsapp" target="_blank" rel="noopener"
+           href="https://wa.me/5538998182986?text=Ol%C3%A1%2C%20quero%20um%20or%C3%A7amento%20com%20a%20Help%20Constru%C3%A7%C3%A3o.">WhatsApp</a>
+        <a class="btn ghost ligar" href="tel:+5538998182986">Ligue já</a>
+      </div>
     </div>
   </header>
 
@@ -84,9 +83,9 @@
         </p>
 
         <div class="actions">
-          <a class="btn primary" target="_blank" rel="noopener"
+          <a class="btn primary whatsapp" target="_blank" rel="noopener"
              href="https://wa.me/5538998182986?text=Ol%C3%A1%2C%20quero%20um%20or%C3%A7amento%20com%20a%20Help%20Constru%C3%A7%C3%A3o.">💬 WhatsApp Orçamento</a>
-          <a class="btn ghost" href="tel:+5538998182986">📞 Ligar Agora</a>
+          <a class="btn ghost ligar" href="tel:+5538998182986">📞 Ligar Agora</a>
         </div>
 
         <div class="badges" aria-label="Selos">
@@ -95,21 +94,17 @@
           <span class="badge">Garantia &amp; Nota Fiscal</span>
         </div>
 
-        <!-- Banner com proporção controlada (foco no rodapé no CSS) -->
-        
+        <!-- Banner -->
         <a class="banner banner--cover"
-   href="https://wa.me/5538998182986?text=Ol%C3%A1%2C%20quero%20um%20or%C3%A7amento%20com%20a%20Help%20Constru%C3%A7%C3%A3o."
-   target="_blank" rel="noopener" aria-label="Solicitar orçamento">
-  <picture>
-    <!-- Desktop -->
-    <source srcset="assets/banner-hero-desktop.jpg" media="(min-width: 1024px)">
-    <!-- Mobile / tablet -->
-    <img src="assets/banner-hero-mobile.jpg"
-         alt="Equipe Help Construção — Segurança, Qualidade e Confiança"
-         decoding="async" loading="lazy" width="1600" height="900" />
-  </picture>
-</a>
-
+           href="https://wa.me/5538998182986?text=Ol%C3%A1%2C%20quero%20um%20or%C3%A7amento%20com%20a%20Help%20Constru%C3%A7%C3%A3o."
+           target="_blank" rel="noopener" aria-label="Solicitar orçamento">
+          <picture>
+            <source srcset="assets/banner-hero-desktop.jpg" media="(min-width: 1024px)">
+            <img src="assets/banner-hero-mobile.jpg"
+                 alt="Equipe Help Construção — Segurança, Qualidade e Confiança"
+                 decoding="async" loading="lazy" width="1600" height="900" />
+          </picture>
+        </a>
 
         <!-- Frase de efeito -->
         <p class="tagline">Construímos mais do que obras: <strong>construímos sonhos</strong>.</p>
@@ -161,34 +156,33 @@
         </header>
 
         <div class="gallery">
-  <figure class="shot">
-    <img src="assets/banner-antes-depois.jpg" alt="Antes e Depois">
-    <figcaption>Antes &amp; Depois</figcaption>
-  </figure>
-  <figure class="shot">
-    <img src="assets/banner-eletrocalha.jpg" alt="Eletrocalha">
-    <figcaption>Eletrocalha</figcaption>
-  </figure>
-  <figure class="shot">
-    <img src="assets/banner-eletroduto.jpg" alt="Eletroduto">
-    <figcaption>Eletroduto</figcaption>
-  </figure>
-  <figure class="shot">
-    <img src="assets/cozinha.png" alt="Reforma de Cozinha">
-    <figcaption>Cozinha</figcaption>
-  </figure>
- <figure class="shot">
-  <img src="assets/predio.jpg.png?v=3"
-       alt="Reforma de Prédio — antes e depois"
-       width="1280" height="720" loading="lazy" decoding="async">
-  <figcaption>Prédio</figcaption>
-</figure>
-  <figure class="shot">
-    <img src="assets/tubulacao.png" alt="Reparo de Tubulação">
-    <figcaption>Tubulação</figcaption>
-  </figure>
-</div>
-
+          <figure class="shot">
+            <img src="assets/banner-antes-depois.jpg" alt="Antes e Depois">
+            <figcaption>Antes &amp; Depois</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/banner-eletrocalha.jpg" alt="Eletrocalha">
+            <figcaption>Eletrocalha</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/banner-eletroduto.jpg" alt="Eletroduto">
+            <figcaption>Eletroduto</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/cozinha.png" alt="Reforma de Cozinha">
+            <figcaption>Cozinha</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/predio.jpg?v=3"
+                 alt="Reforma de Prédio — antes e depois"
+                 width="1280" height="720" loading="lazy" decoding="async">
+            <figcaption>Prédio</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/tubulacao.png" alt="Reparo de Tubulação">
+            <figcaption>Tubulação</figcaption>
+          </figure>
+        </div>
       </div>
     </section>
 
@@ -253,7 +247,7 @@
           </label>
 
           <label>Telefone / WhatsApp
-            <input type="tel" name="telefone" placeholder="(38) 9 9818-2986" autocomplete="tel" required>
+            <input type="tel" name="telefone" placeholder="(38) 9 9999-9999" autocomplete="tel" required>
           </label>
 
           <label>Serviço
@@ -274,8 +268,8 @@
           </label>
 
           <div class="form-ctas">
-            <button type="submit" class="btn primary">Enviar pelo WhatsApp</button>
-            <a class="btn ghost" href="tel:+5538998182986">Ligar Agora</a>
+            <button type="submit" class="btn primary whatsapp">Enviar pelo WhatsApp</button>
+            <a class="btn ghost ligar" href="tel:+5538998182986">Ligar Agora</a>
           </div>
         </form>
       </div>
