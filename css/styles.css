@@ -61,7 +61,7 @@ body{
    Cabeçalho
    ========================= */
 .header{
-  position:sticky; top:0; z-index:60;
+  position:sticky; top:0; z-index:100;
   background:linear-gradient(180deg,var(--header-grad-from) 0%,var(--header-grad-to) 100%);
   border-bottom:1px solid #ffffff1a;
   box-shadow:0 6px 18px rgba(0,0,0,.25);
@@ -102,7 +102,7 @@ body{
 /* Botão hambúrguer (mobile) */
 .hamb{
   width:34px; height:26px; background:none; border:0; cursor:pointer; display:none;
-  position:relative; z-index:61;
+  position:relative; z-index:101;
 }
 .hamb span{
   position:absolute; left:0; width:100%; height:3px; background:#e9edf6; border-radius:2px;
@@ -122,34 +122,47 @@ body{
   .menu{ flex-direction:row; gap:16px; }
 }
 
-/* Mobile: menu vertical drop-down + botões empilhados iguais */
+/* Mobile: topo em 3 colunas (brand | hamb | ações); menu drop-down abaixo */
 @media (max-width:900px){
-  .hamb{ display:block; }
-
-  .menu-wrap{
-    display:none; /* fechado por padrão */
-    position:absolute; left:0; right:0; top:100%;
-    background:linear-gradient(180deg,var(--header-grad-from),var(--header-grad-to));
-    border-bottom:1px solid #ffffff1a;
-    box-shadow:0 14px 30px rgba(0,0,0,.35);
+  .header-grid{
+    display:grid;
+    grid-template-columns: 1fr auto auto; /* brand | hamb | ações */
+    align-items:center;
+    gap:10px;
   }
-  .menu-wrap.open{ display:block; }
-
-  .menu{
-    flex-direction:column; gap:0; list-style:none; margin:0; padding:8px;
-  }
-  .menu li{ width:100%; }
-  .menu a{ display:block; width:100%; padding:12px 14px; border-radius:10px; }
-
-  /* Ações abaixo, empilhadas e com mesma largura */
+  .brand{ grid-column:1/2; }
+  .hamb{ grid-column:2/3; display:inline-flex; justify-self:end; }
   .actions{
-    width:100%; margin-top:8px;
-    display:flex; flex-direction:column; gap:12px;
+    grid-column:3/4;
+    display:flex; flex-direction:row; align-items:center; gap:8px;
+    width:auto; margin:0; /* lado a lado com o hambúrguer */
   }
   .actions .btn{
-    width:100%; padding:14px 16px; font-size:16px; border-radius:12px;
-    text-align:center;
+    padding:8px 10px; font-size:13px; border-radius:10px;
+    line-height:1; white-space:nowrap;
   }
+
+  /* Menu drop-down quando abre */
+  .menu-wrap{
+    display:none; position:absolute; left:0; right:0; top:100%;
+    background:linear-gradient(180deg,var(--header-grad-from),var(--header-grad-to));
+    border-bottom:1px solid #ffffff1a; box-shadow:0 14px 30px rgba(0,0,0,.35);
+    z-index:99;
+  }
+  .menu-wrap.open{ display:block; }
+  .menu{ flex-direction:column; gap:0; margin:0; padding:8px; }
+  .menu li{ width:100%; }
+  .menu a{ display:block; width:100%; padding:12px 14px; border-radius:10px; }
+}
+
+/* Ajuste fino (notebooks ~901–1220px): comprime levemente para não quebrar */
+@media (min-width:901px) and (max-width:1220px){
+  .header-grid{ gap:12px; }
+  .menu{ gap:10px; }
+  .menu a{ padding:6px 10px; font-size:14px; }
+  .actions{ gap:8px; }
+  .actions .btn{ padding:9px 12px; font-size:14px; }
+  .menu a.menu-cta{ padding:6px 8px; } /* evita “Orçamento” cair */
 }
 
 /* Ajuste fino para telas entre 901–1100px: reduz levemente espaçamentos */
