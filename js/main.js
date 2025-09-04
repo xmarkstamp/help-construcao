@@ -51,4 +51,22 @@ if(form){
     const url  = `https://wa.me/5538998182986?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank');
   });
+   // Ripple: não altera layout, só efeito visual no clique
+function attachRipple(el){
+  const style = getComputedStyle(el);
+  if (style.position === 'static') el.style.position = 'relative';
+  el.addEventListener('click', (e)=>{
+    const rect = el.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+    ripple.style.top  = (e.clientY - rect.top  - size/2) + 'px';
+    el.appendChild(ripple);
+    setTimeout(()=> ripple.remove(), 650);
+  });
+}
+document.querySelectorAll('.card, .shot, .t-card').forEach(attachRipple);
+
 }
